@@ -236,7 +236,7 @@ FIRST_START = TRUE
 LAT=<latitud_inicial>
 LON=<longitud_inicial>
 
-CONSUMO_WH = <potencia_consumida_estimada_en_W>
+CONSUMO_W = <potencia_consumida_estimada_en_W>
 CAPACIDAD_MAH = <capacidad_bateria_en_mAh>
 VOLTAJE_BATERIA = <voltaje_nominal_bateria>
 MARGEN_SEGURIDAD = <factor_de_seguridad>
