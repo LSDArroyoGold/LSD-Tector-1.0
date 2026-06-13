@@ -117,7 +117,7 @@ Clonar este repositorio en la Raspberry Pi:
 
 ```bash
 cd /home/lsd
-git clone https://github.com/TU_USUARIO/LSD-Tector-1.0.git
+git clone https://github.com/LSDArroyoGold/LSD-Tector-1.0.git
 ```
 
 Copiar los scripts y archivos de configuración a `/home/lsd/`:
