@@ -135,7 +135,6 @@ chmod +x /home/lsd/*.sh
 Copiar los archivos de configuración de systemd y hostapd:
 
 ```bash
-sudo cp /home/lsd/LSD-Tector-1.0/systemd/hostapd.conf /etc/hostapd/hostapd.conf
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/sync-rtc.service /etc/systemd/system/
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/hotspot.service /etc/systemd/system/
 ```
@@ -145,7 +144,6 @@ Dar permisos correctos a los archivos de servicio:
 ```bash
 sudo chmod 644 /etc/systemd/system/sync-rtc.service
 sudo chmod 644 /etc/systemd/system/hotspot.service
-sudo chmod 644 /etc/hostapd/hostapd.conf
 ```
 
 Recargar la configuración de systemd para que reconozca los nuevos servicios:
