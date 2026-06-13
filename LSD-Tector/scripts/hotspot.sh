@@ -3,8 +3,6 @@
 export RCLONE_CONFIG=/home/lsd/.config/rclone/rclone.conf
 export HOME=/home/lsd
 
-sleep 15
-
 LOG_PATH="/home/lsd/log_sistema.txt"
 CONFIG_PATH="/home/lsd/config_general.txt"
 CONFIG_HORARIOS="/home/lsd/config_horarios.txt"
@@ -15,6 +13,38 @@ log() {
 }
 
 FIRST_START=$(awk -F' = ' '/FIRST_START/{print $2}' "$CONFIG_PATH" | tr -d '\r')
+
+sleep 15
+
+# Chequear si fue activado por botón
+BUTTON_FLAG=$(python3 -c "
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+val = GPIO.input(24)
+GPIO.cleanup()
+print(val)
+")
+
+if [ "$FIRST_START" != "TRUE" ] && [ "$BUTTON_FLAG" != "1" ]; then
+    exit 0
+fi
+
+if [ "$BUTTON_FLAG" = "1" ]; then
+python3 -c "
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(25, GPIO.OUT)
+GPIO.output(25, GPIO.LOW)
+import time; time.sleep(0.1)
+GPIO.output(25, GPIO.HIGH)
+GPIO.cleanup()
+"
+    sed -i 's/FIRST_START = .*/FIRST_START = TRUE/' "$CONFIG_PATH"
+    FIRST_START="TRUE"
+fi
 
 if [ "$FIRST_START" != "TRUE" ]; then
     exit 0
