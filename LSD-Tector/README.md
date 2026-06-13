@@ -17,7 +17,7 @@ Este software fue desarrollado y probado sobre una **Raspberry Pi 4 Model B (4GB
 - astral (librería Python)
 - API Python de PiJuice
 - nmcli (incluido en Raspberry Pi OS)
-- hostapd, dnsmasq y util-linux-extra
+- dnsmasq y util-linux-extra
 
 ---
 
@@ -48,7 +48,6 @@ La instalación tarda varios minutos. Una vez finalizada, BirdNET-Pi queda corri
 
 ```bash
 sudo apt update
-sudo apt install hostapd dnsmasq util-linux-extra --reinstall
 sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq
 ```
@@ -132,10 +131,9 @@ chmod +x /home/lsd/*.sh
 
 > **Nota:** el asterisco `*` es un comodín de bash que significa "todos los archivos". Por ejemplo, `scripts/*` copia todos los archivos dentro de la carpeta `scripts/`.
 
-Copiar los archivos de configuración de systemd y hostapd:
+Copiar los archivos de configuración de systemd:
 
 ```bash
-sudo cp /home/lsd/LSD-Tector-1.0/systemd/hostapd.conf /etc/hostapd/hostapd.conf
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/sync-rtc.service /etc/systemd/system/
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/hotspot.service /etc/systemd/system/
 ```
@@ -145,7 +143,6 @@ Dar permisos correctos a los archivos de servicio:
 ```bash
 sudo chmod 644 /etc/systemd/system/sync-rtc.service
 sudo chmod 644 /etc/systemd/system/hotspot.service
-sudo chmod 644 /etc/hostapd/hostapd.conf
 ```
 
 Recargar la configuración de systemd para que reconozca los nuevos servicios:
