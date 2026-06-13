@@ -19,18 +19,12 @@ Este software fue desarrollado y probado sobre una **Raspberry Pi 4 Model B (4GB
 - nmcli (incluido en Raspberry Pi OS)
 - dnsmasq y util-linux-extra
 
----
-
-## Instalación
-
 ### 1. Sistema operativo
 
-Instalar **Raspberry Pi OS Full 64-bit (Bookworm)** en la microSD usando [Raspberry Pi Imager](https://www.raspberrypi.com/software/). Durante el proceso de flasheo, en la sección de configuración avanzada del Imager (ícono del engranaje), crear un usuario con nombre y contraseña a elección. En nuestro caso utilizamos:
+Instalar **Raspberry Pi OS Full 64-bit (Bookworm)** en la microSD usando [Raspberry Pi Imager](https://www.raspberrypi.com/software/). Durante el proceso de flasheo, en la sección de configuración avanzada del Imager (ícono del engranaje), crear un usuario con nombre y contraseña a elección.
 
-- Nombre de usuario: `lsd`
-- Contraseña: `fourier1822`
-
-> **Nota:** todos los scripts y rutas de este repositorio asumen que el usuario es `lsd` y que los archivos se encuentran en `/home/lsd/`. Si se utiliza un nombre de usuario diferente, será necesario reemplazar `lsd` por el nombre elegido en todas las rutas de los scripts antes de utilizarlos.
+> [!WARNING]
+> Todos los scripts y archivos de configuración de este repositorio tienen la ruta `/home/lsd/` hardcodeada como directorio de trabajo. Esta ruta corresponde al usuario `lsd` utilizado en nuestra instalación de referencia. Si se utiliza un nombre de usuario diferente, será necesario reemplazar manualmente **todas las apariciones** de `/home/lsd/` por la ruta correspondiente al usuario elegido, en cada uno de los scripts `.sh` y `.py` del repositorio antes de utilizarlos. En versiones futuras esta configuración será centralizada y más fácil de personalizar.
 
 Una vez flasheada la microSD, insertarla en la Raspberry Pi y encenderla.
 
@@ -43,6 +37,14 @@ curl -s https://raw.githubusercontent.com/Nachtzuster/BirdNET-Pi/main/newinstall
 ```
 
 La instalación tarda varios minutos. Una vez finalizada, BirdNET-Pi queda corriendo automáticamente y es accesible desde cualquier dispositivo en la misma red ingresando `http://[IP_de_la_RP]` en el navegador.
+
+Para obtener la IP de la Raspberry Pi, ejecutar desde su terminal:
+
+```bash
+hostname -I
+```
+
+El primer valor que devuelve es la IP local del dispositivo.
 
 ### 3. Paquetes del sistema
 
