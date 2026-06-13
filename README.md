@@ -393,6 +393,7 @@ Al final del archivo, agregar las siguientes líneas:
 * * * * * /home/lsd/cierre_atardecer.sh
 * * * * * /home/lsd/inicio_amanecer.sh
 * * * * * /home/lsd/inicio_atardecer.sh
+* * * * * python3 /home/lsd/check_button.py
 ```
 
 Guardar con **Ctrl+O**, Enter, y salir con **Ctrl+X**.
