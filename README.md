@@ -17,7 +17,7 @@ Este software fue desarrollado y probado sobre una **Raspberry Pi 4 Model B (4GB
 - astral (librería Python)
 - API Python de PiJuice
 - nmcli (incluido en Raspberry Pi OS)
-- hostapd, dnsmasq y util-linux-extra
+- dnsmasq y util-linux-extra
 
 ---
 
@@ -48,7 +48,6 @@ La instalación tarda varios minutos. Una vez finalizada, BirdNET-Pi queda corri
 
 ```bash
 sudo apt update
-sudo apt install hostapd dnsmasq util-linux-extra --reinstall
 sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq
 ```
