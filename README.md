@@ -133,7 +133,7 @@ chmod +x /home/lsd/*.sh
 
 > **Nota:** el asterisco `*` es un comodín de bash que significa "todos los archivos". Por ejemplo, `scripts/*` copia todos los archivos dentro de la carpeta `scripts/`.
 
-Copiar los archivos de configuración de systemd y hostapd:
+Copiar los archivos de configuración de systemd:
 
 ```bash
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/sync-rtc.service /etc/systemd/system/
