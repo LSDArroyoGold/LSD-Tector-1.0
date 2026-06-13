@@ -57,26 +57,19 @@ sleep 2
 sudo nmcli radio wifi on
 sleep 2
 
-#levantar_hotspot() {
-    #sudo ip addr flush dev wlan0
-    #sleep 1
-    #sudo pkill dnsmasq 2>/dev/null
-    #if [ $? -ne 0 ]; then
-        #sudo pkill dnsmasq 2>/dev/null
-        #sleep 2
-        #sudo nmcli device wifi hotspot ifname wlan0 ssid BirdNET-Setup password birdnet123
-    #fi
-    #sleep 3
-    #sudo nmcli connection modify Hotspot ipv4.addresses 192.168.4.1/24 ipv4.method shared
-    #sudo nmcli connection up Hotspot
-#}
+
+# ============================================================
+# CONFIGURACIÓN DEL HOTSPOT — MODIFICAR ANTES DE USAR
+# HOTSPOT_PASSWORD: contraseña de la red WiFi del hotspot (mínimo 8 caracteres)
+# ============================================================
+HOTSPOT_PASSWORD="<contraseña_a_elección>"
 
 levantar_hotspot() {
     sudo ip addr flush dev wlan0
     sleep 1
     sudo pkill dnsmasq 2>/dev/null
     sleep 2
-    sudo nmcli device wifi hotspot ifname wlan0 ssid BirdNET-Setup password birdnet123 con-name Hotspot
+    sudo nmcli device wifi hotspot ifname wlan0 ssid BirdNET-Setup password "$HOTSPOT_PASSWORD" con-name Hotspot
     sleep 3
     sudo nmcli connection modify Hotspot ipv4.addresses 192.168.4.1/24 ipv4.method shared
     sudo nmcli connection up Hotspot
