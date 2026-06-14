@@ -382,7 +382,7 @@ Verificar que las tareas quedaron registradas:
 crontab -l
 ```
 
-La salida debe mostrar las cuatro líneas agregadas.
+La salida debe mostrar las cinco líneas agregadas.
 
 Verificar también que el servicio cron está activo en el sistema:
 
