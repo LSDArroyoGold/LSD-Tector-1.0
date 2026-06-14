@@ -50,9 +50,18 @@ El primer valor que devuelve es la IP local del dispositivo.
 
 ```bash
 sudo apt update
+sudo apt install -y dnsmasq util-linux-extra
 sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq
 ```
+
+Verificar que `hwclock` quedó disponible:
+
+```bash
+which hwclock
+```
+
+Debe devolver `/usr/sbin/hwclock`.
 
 ### 4. Habilitar I2C
 
