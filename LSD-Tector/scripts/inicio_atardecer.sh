@@ -14,6 +14,7 @@ pj = PiJuice(1, 0x14)
 
 CONSUMO_W = $(awk -F'=' '/CONSUMO_W/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
 
+AUTO_SYNC = '$(awk -F'=' '/AUTO_SYNC/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')'
 if AUTO_SYNC == 'ON':
 	duracion_h = $(awk -F' = ' '/duracion_atardecer_sync/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')
 else:
