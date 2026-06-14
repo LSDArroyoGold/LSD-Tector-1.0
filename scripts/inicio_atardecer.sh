@@ -1,4 +1,8 @@
 #!/bin/bash
+
+export RCLONE_CONFIG=/home/lsd/.config/rclone/rclone.conf
+export HOME=/home/lsd
+
 HORARIO=$(awk -F' = ' '/inicio_atardecer/{print $2}' /home/lsd/config_horarios.txt |  tr -d '\r')
 HORA_ACTUAL=$(date +%H:%M)
 
@@ -12,21 +16,21 @@ sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
 from pijuice import PiJuice
 pj = PiJuice(1, 0x14)
 
-CONSUMO_W = $(awk -F'=' '/CONSUMO_W/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
+CONSUMO_W='$(awk -F'=' '/CONSUMO_W/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')'
 
-AUTO_SYNC = '$(awk -F'=' '/AUTO_SYNC/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')'
+AUTO_SYNC='$(awk -F' = ' '/AUTO_SYNC/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')'
 if AUTO_SYNC == 'ON':
-	duracion_h = $(awk -F' = ' '/duracion_atardecer_sync/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')
+	duracion_h = '$(awk -F' = ' '/duracion_atardecer_sync/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')'
 else:
 	from datetime import datetime
 	t_inicio = datetime.strptime('$(awk -F' = ' '/inicio_atardecer/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')', '%H:%M')
 	t_fin = datetime.strptime('$(awk -F' = ' '/fin_atardecer/{print $2}' /home/lsd/config_horarios.txt | tr -d ' \r')', '%H:%M')
 	duracion_h = (t_fin - t_inicio).seconds / 3600
 
-CONSUMO_WH = CONSUMO_W * duracion_h
-CAPACIDAD_MAH =$(awk -F'=' '/CAPACIDAD_MAH/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
-VOLTAJE = $(awk -F'=' '/VOLTAJE_BATERIA/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
-MARGEN = $(awk -F'=' '/MARGEN_SEGURIDAD/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
+CONSUMO_WH = float(CONSUMO_W) * duracion_h
+CAPACIDAD_MAH = $(awk -F' = ' '/CAPACIDAD_MAH/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
+VOLTAJE = $(awk -F' = ' '/VOLTAJE_BATERIA/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
+MARGEN = $(awk -F' = ' '/MARGEN_SEGURIDAD/{print $2}' /home/lsd/config_general.txt | tr -d ' \r')
 
 capacidad_wh = (CAPACIDAD_MAH/1000)*VOLTAJE
 umbral = (CONSUMO_WH/capacidad_wh)*100*MARGEN
@@ -57,6 +61,8 @@ print(pj.status.GetChargeLevel()['data'])
 
 		sudo nmcli radio wifi off
 
+		sudo chown lsd:lsd /home/lsd/.config/rclone/rclone.conf
+
 		HORA_WAKE=$(awk -F' = ' '/inicio_amanecer/{print $2}' /home/lsd/config_horarios.txt | tr -d '\r')
 		python3 /home/lsd/set_wake_pijuice.py $HORA_WAKE
 		python3 -c "
@@ -82,5 +88,7 @@ pj.power.SetPowerOff(10)
 		fi
 		rclone copy /home/lsd/log_sistema.txt gdrive:Laboratorio\ 6/
 		sudo nmcli radio wifi off
+
+		sudo chown lsd:lsd /home/lsd/.config/rclone/rclone.conf
 	fi
 fi
