@@ -59,12 +59,12 @@ print(pj.status.GetChargeLevel()['data'])
 		HORA_WAKE=$(awk -F' = ' '/inicio_amanecer/{print $2}' /home/lsd/config_horarios.txt | tr -d '\r')
 		python3 /home/lsd/set_wake_pijuice.py $HORA_WAKE
 		python3 -c "
-		import sys
-		sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
-		from pijuice import PiJuice
-		pj = PiJuice(1, 0x14)
-		pj.power.SetPowerOff(10)
-		"
+import sys
+sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
+from pijuice import PiJuice
+pj = PiJuice(1, 0x14)
+pj.power.SetPowerOff(10)
+"
 		sudo poweroff
 	else
 		python3 /home/lsd/log_sistema.py INICIO atardecer
