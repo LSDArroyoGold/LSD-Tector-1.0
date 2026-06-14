@@ -370,7 +370,7 @@ sudo systemctl enable hotspot.service
 
 ### 14. Configurar el crontab
 
-El crontab define las tareas periódicas del sistema. Los cuatro scripts principales (`cierre_amanecer.sh`, `cierre_atardecer.sh`, `inicio_amanecer.sh`, `inicio_atardecer.sh`) deben ejecutarse cada minuto. Cada uno verifica internamente si la hora actual coincide con su horario configurado y, de ser así, ejecuta su rutina.
+El crontab define las tareas periódicas del sistema. Los cuatro scripts principales (`cierre_amanecer.sh`, `cierre_atardecer.sh`, `inicio_amanecer.sh`, `inicio_atardecer.sh`) y la rutina del botón deben ejecutarse cada minuto. Cada uno verifica internamente si la hora actual coincide con su horario configurado y, de ser así, ejecuta su rutina.
 
 Abrir el crontab del usuario `lsd`:
 
