@@ -36,15 +36,26 @@ Desde la terminal de la RP, ejecutar:
 curl -s https://raw.githubusercontent.com/Nachtzuster/BirdNET-Pi/main/newinstaller.sh | bash
 ```
 
-La instalación tarda varios minutos. Una vez finalizada, BirdNET-Pi queda corriendo automáticamente y es accesible desde cualquier dispositivo en la misma red ingresando `http://[IP_de_la_RP]` en el navegador.
-
-Para obtener la IP de la Raspberry Pi, ejecutar desde su terminal:
+La instalación tarda varios minutos. Una vez finalizada, BirdNET-Pi queda corriendo automáticamente y es accesible desde cualquier dispositivo en la misma red ingresando `http://[IP_de_la_RP]` en el navegador. Para obtener la IP de la Raspberry Pi, ejecutar desde su terminal:
 
 ```bash
 hostname -I
 ```
 
 El primer valor que devuelve es la IP local del dispositivo.
+
+Una vez instalado, configurar la gestión de disco para evitar que la tarjeta microSD se llene con el tiempo:
+
+```bash
+sudo nano /etc/birdnet/birdnet.conf
+```
+Buscar los parámetros `FULL_DISK` y `PURGE_THRESHOLD` y establecerlos así:
+
+```
+FULL_DISK=purge
+PURGE_THRESHOLD=75
+```
+Con esta configuración, cuando el disco supere el 75% de ocupación, BirdNET-Pi eliminará automáticamente las grabaciones del día más antiguo para liberar espacio. Guardar con **Ctrl+O** y salir con **Ctrl+X**.
 
 ### 3. Paquetes del sistema
 
