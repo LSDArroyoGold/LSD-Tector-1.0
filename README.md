@@ -239,9 +239,6 @@ CONSUMO_W = <potencia_consumida_estimada_en_W>
 CAPACIDAD_MAH = <capacidad_bateria_en_mAh>
 VOLTAJE_BATERIA = <voltaje_nominal_bateria>
 MARGEN_SEGURIDAD = <factor_de_seguridad>
-
-SSID = 
-PASSWORD = 
 ```
 
 Descripción de cada parámetro y cómo completarlo:
@@ -254,7 +251,6 @@ Descripción de cada parámetro y cómo completarlo:
 | `CAPACIDAD_MAH` | Capacidad nominal de la batería en mAh. Reemplazar por la capacidad de la batería utilizada. |
 | `VOLTAJE_BATERIA` | Voltaje nominal de la batería en V. Para baterías LiPo de celda única, utilizar `3.7`. |
 | `MARGEN_SEGURIDAD` | Factor multiplicador aplicado al umbral de batería para garantizar margen de operación. Valor recomendado: `1.5`. |
-| `SSID` y `PASSWORD` | Dejar vacíos. Se completan automáticamente al configurar la red WiFi mediante el modo hotspot. |
 
 > **Importante:** respetar el formato de cada línea. Las variables `LAT` y `LON` no llevan espacios alrededor del signo `=`. El resto de las variables sí llevan espacios.
 
