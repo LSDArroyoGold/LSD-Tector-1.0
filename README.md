@@ -54,14 +54,6 @@ sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq
 ```
 
-Verificar que `hwclock` quedó disponible:
-
-```bash
-which hwclock
-```
-
-Debe devolver `/usr/sbin/hwclock`.
-
 ### 4. Habilitar I2C
 
 La PiJuice se comunica con la Raspberry Pi mediante el protocolo I2C. Para habilitarlo:
