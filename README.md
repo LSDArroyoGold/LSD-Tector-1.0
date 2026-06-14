@@ -125,15 +125,17 @@ chmod +x /home/lsd/*.sh
 
 > **Nota:** el asterisco `*` es un comodín de bash que significa "todos los archivos". Por ejemplo, `scripts/*` copia todos los archivos dentro de la carpeta `scripts/`.
 
-Copiar el archivo de servicio de systemd:
+Copiar los archivos de servicio de systemd:
 
 ```bash
+sudo cp /home/lsd/LSD-Tector-1.0/systemd/sync-rtc.service /etc/systemd/system/
 sudo cp /home/lsd/LSD-Tector-1.0/systemd/hotspot.service /etc/systemd/system/
 ```
 
-Dar permisos correctos al archivo de servicio:
+Dar permisos correctos a los archivos de servicio:
 
 ```bash
+sudo chmod 644 /etc/systemd/system/sync-rtc.service
 sudo chmod 644 /etc/systemd/system/hotspot.service
 ```
 
@@ -332,7 +334,29 @@ print(pj.config.GetPowerInputsConfig())
 La salida debe mostrar `'no_battery_turn_on': True`.
 
 
-### 12. Habilitar el servicio hotspot
+### 12. Habilitar la sincronización del reloj al arranque
+
+La Raspberry Pi 4 no tiene reloj de tiempo real propio. La PiJuice registra su RTC como `rtc0` en el sistema, y ese RTC es el que conserva la hora cuando el dispositivo está apagado entre ventanas. El servicio `sync-rtc.service` copia la hora del RTC al reloj del sistema en cada arranque, mediante `hwclock --hctosys`.
+
+Esto es imprescindible para la operación en campo: la PiJuice despierta a la Raspberry Pi a la hora programada, y este servicio garantiza que el reloj del sistema tenga la hora real correcta antes de que el crontab evalúe los horarios de las ventanas. Sin esta sincronización, tras un arranque sin conexión a internet el reloj del sistema quedaría con la hora del último apagado y las ventanas no dispararían a la hora correcta.
+
+El archivo del servicio ya fue copiado a `/etc/systemd/system/` en el paso 7. Habilitarlo:
+
+```bash
+sudo systemctl enable sync-rtc.service
+sudo systemctl start sync-rtc.service
+```
+
+Verificar que está activo:
+
+```bash
+sudo systemctl status sync-rtc.service
+```
+
+La salida debe indicar `active (exited)` o similar, sin errores.
+
+
+### 13. Habilitar el servicio hotspot
 
 El servicio `hotspot.service` ejecuta el script `hotspot.sh` al arrancar el sistema. Este script verifica si `FIRST_START=TRUE` en `config_general.txt` y, en ese caso, activa el modo hotspot para configurar la red WiFi. El archivo del servicio ya fue copiado a `/etc/systemd/system/` en el paso 7. Habilitarlo:
 
@@ -342,7 +366,7 @@ sudo systemctl enable hotspot.service
 
 > **Nota:** no es necesario ejecutar `start` sobre este servicio en este momento. Se ejecutará automáticamente en el próximo arranque de la Raspberry Pi.
 
-### 13. Configurar el crontab
+### 14. Configurar el crontab
 
 El crontab define las tareas periódicas del sistema. Los cuatro scripts principales (`cierre_amanecer.sh`, `cierre_atardecer.sh`, `inicio_amanecer.sh`, `inicio_atardecer.sh`) y la rutina del botón deben ejecutarse cada minuto. Cada uno verifica internamente si la hora actual coincide con su horario configurado y, de ser así, ejecuta su rutina.
 
@@ -389,7 +413,7 @@ sudo systemctl enable cron
 sudo systemctl start cron
 ```
 
-### 14. Crear carpetas en Google Drive y subir archivos de configuración
+### 15. Crear carpetas en Google Drive y subir archivos de configuración
 
 Crear las carpetas que utilizará el sistema en Google Drive:
 
