@@ -9,7 +9,3 @@ offset_amanecer_sync=20
 duracion_atardecer_sync=2
 offset_atardecer_sync=20
 
-
-#envio_drive = 11:55
-#borrado_sonogramas = 20:42
-#sync_clock = 16:03
