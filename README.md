@@ -339,24 +339,8 @@ print(pj.config.GetPowerInputsConfig())
 
 La salida debe mostrar `'no_battery_turn_on': True`.
 
-### 12. Habilitar el servicio sync-rtc
 
-El servicio `sync-rtc.service` sincroniza el reloj del sistema con el RTC de la PiJuice cada vez que la Raspberry Pi arranca. El archivo del servicio ya fue copiado a `/etc/systemd/system/` en el paso 7. Ahora hay que habilitarlo:
-
-```bash
-sudo systemctl enable sync-rtc.service
-sudo systemctl start sync-rtc.service
-```
-
-Verificar que el servicio está activo:
-
-```bash
-sudo systemctl status sync-rtc.service
-```
-
-La salida debe indicar `active (exited)` o similar, sin errores.
-
-### 13. Habilitar el servicio hotspot
+### 12. Habilitar el servicio hotspot
 
 El servicio `hotspot.service` ejecuta el script `hotspot.sh` al arrancar el sistema. Este script verifica si `FIRST_START=TRUE` en `config_general.txt` y, en ese caso, activa el modo hotspot para configurar la red WiFi. El archivo del servicio ya fue copiado a `/etc/systemd/system/` en el paso 7. Habilitarlo:
 
@@ -366,7 +350,7 @@ sudo systemctl enable hotspot.service
 
 > **Nota:** no es necesario ejecutar `start` sobre este servicio en este momento. Se ejecutará automáticamente en el próximo arranque de la Raspberry Pi.
 
-### 14. Configurar el crontab
+### 13. Configurar el crontab
 
 El crontab define las tareas periódicas del sistema. Los cuatro scripts principales (`cierre_amanecer.sh`, `cierre_atardecer.sh`, `inicio_amanecer.sh`, `inicio_atardecer.sh`) y la rutina del botón deben ejecutarse cada minuto. Cada uno verifica internamente si la hora actual coincide con su horario configurado y, de ser así, ejecuta su rutina.
 
@@ -413,7 +397,7 @@ sudo systemctl enable cron
 sudo systemctl start cron
 ```
 
-### 15. Crear carpetas en Google Drive y subir archivos de configuración
+### 14. Crear carpetas en Google Drive y subir archivos de configuración
 
 Crear las carpetas que utilizará el sistema en Google Drive:
 
