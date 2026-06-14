@@ -57,8 +57,6 @@ sleep 2
 sudo nmcli radio wifi on
 sleep 2
 
-
-
 levantar_hotspot() {
     sudo ip addr flush dev wlan0
     sleep 1
