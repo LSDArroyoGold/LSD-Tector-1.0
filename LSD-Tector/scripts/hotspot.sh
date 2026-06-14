@@ -58,11 +58,6 @@ sudo nmcli radio wifi on
 sleep 2
 
 
-# ============================================================
-# CONFIGURACIÓN DEL HOTSPOT — MODIFICAR ANTES DE USAR
-# HOTSPOT_PASSWORD: contraseña de la red WiFi del hotspot (mínimo 8 caracteres)
-# ============================================================
-HOTSPOT_PASSWORD="<contraseña_a_elección>"
 
 levantar_hotspot() {
     sudo ip addr flush dev wlan0
