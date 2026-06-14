@@ -32,16 +32,14 @@ umbral = (CONSUMO_WH/capacidad_wh)*100*MARGEN
 print(int(umbral))
 ")
 
-	NIVEL=$(python3 -c "
+NIVEL=$(python3 -c "
 import sys
 sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
 from pijuice import PiJuice
 pj = PiJuice(1, 0x14)
 print(pj.status.GetChargeLevel()['data'])
 ")
-
 	if [ "$NIVEL" -lt "$UMBRAL" ]; then
-
 		python3 /home/lsd/log_sistema.py CANCELADA amanecer
 		sudo nmcli radio wifi on
 		INTENTOS=0
@@ -49,22 +47,19 @@ print(pj.status.GetChargeLevel()['data'])
 			sleep 5
 			INTENTOS=$((INTENTOS + 1))
 		done
-
 		if ping -c 1 google.com &>/dev/null; then
 			rclone copy /home/lsd/log_sistema.txt gdrive:Laboratorio\ 6/
 		fi
-
 		sudo nmcli radio wifi off
-
 		HORA_WAKE=$(awk -F' = ' '/inicio_atardecer/{print $2}' /home/lsd/config_horarios.txt | tr -d '\r')
 		python3 /home/lsd/set_wake_pijuice.py $HORA_WAKE
 		python3 -c "
-		import sys
-		sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
-		from pijuice import PiJuice
-		pj = PiJuice(1, 0x14)
-		pj.power.SetPowerOff(10)
-		"
+import sys
+sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
+from pijuice import PiJuice
+pj = PiJuice(1, 0x14)
+pj.power.SetPowerOff(10)
+"
 		sudo poweroff
 	else
 		python3 /home/lsd/log_sistema.py INICIO amanecer
