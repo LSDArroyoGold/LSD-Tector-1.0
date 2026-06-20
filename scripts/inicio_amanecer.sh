@@ -70,7 +70,7 @@ import sys
 sys.path.append('/home/lsd/BirdNET-Pi/PiJuice/Software/Source')
 from pijuice import PiJuice
 pj = PiJuice(1, 0x14)
-pj.power.SetPowerOff(10)
+pj.power.SetPowerOff(30)
 "
 		sudo poweroff
 	else
